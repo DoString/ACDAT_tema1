@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Ejercicios tema 1</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_eje1_main">Conversor de monedas</string>
+    <string name="title_activity_eje2_main">Conversor de cm a pulgadas</string>
+    <string name="title_activity_eje5_main">Generador de contraseñas</string>
+    <string name="title_activity_eje3_main">Navegador</string>
+    <string name="title_activity_web_main">Navegador</string>
+    <string name="title_activity_eje4_main">Contador de cafés</string>
+
+</resources>
