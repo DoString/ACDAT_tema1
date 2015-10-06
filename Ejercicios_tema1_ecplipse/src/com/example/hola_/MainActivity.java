@@ -2,12 +2,14 @@ package com.example.hola_;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 public class MainActivity extends Activity implements OnClickListener{
@@ -20,6 +22,9 @@ public class MainActivity extends Activity implements OnClickListener{
 	private Button eje5;
 	
 	private Intent i;
+	
+	private final static int MAX_SEPARACION_BOTONES = 10;
+	private final static int COLOR_FONDO = 0xFFCDE1F0;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -35,10 +40,16 @@ public class MainActivity extends Activity implements OnClickListener{
 				eje5 = (Button) findViewById(R.id.button5) 
 				};
 		
-		for (Button boton : botones) {
-			boton.setOnClickListener(this);
-		}
+		LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+		lp.setMargins(0, 32, 0, 15);
 		
+		for (int i = 0; i<botones.length; i++ ) {
+			botones[i].setOnClickListener(this);			
+			botones[i].setLayoutParams(lp);
+			if (i <= 1)
+				lp.setMargins(0, 0, 0, 15);
+			botones[i].invalidate();
+		}
 	}
 
 	@Override
@@ -64,7 +75,6 @@ public class MainActivity extends Activity implements OnClickListener{
 	public void onClick(View v) {
 		if (v == eje1){
 			i = new Intent (this, Eje1MainActivity.class);
-			//i.putExtra(DATO, "Hola mundo");
 			startActivity(i);
 		}
 		else if (v == eje2){

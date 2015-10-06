@@ -2,7 +2,10 @@ package com.example.hola_;
 
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.CountDownTimer;
 import android.os.Bundle;
 import android.view.Menu;
@@ -19,6 +22,10 @@ public class Eje4MainActivity extends Activity implements View.OnClickListener {
     private int cafes = 0, tiempo = 5;
     private MyCountDownTimer contadorDescendente;
     private Intent i;
+    private AlertDialog.Builder mbox;
+    private Activity miActividad;
+    private MediaPlayer mp;
+ 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +45,40 @@ public class Eje4MainActivity extends Activity implements View.OnClickListener {
         ponerContadorCafes(0);
         
         i = this.getIntent();
-
+        
+        /*
+         * Necesitamos esta instancia para cerrar la actividad dentro de otra instancia.
+         */
+        miActividad = this; 
+        
+        mbox=new AlertDialog.Builder(this);
+    	mbox.setTitle("ATENCIÓN");
+    	mbox.setMessage("Se ha alcanzado el límite de cafés, desea reiniciar la cuenta?");
+    	
+    	/* Se establece y se obtiene el botón positivo
+    	 * Si se clicka se reinicia la cuenta de cafés
+    	 */
+    	mbox.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+			
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				ponerContadorCafes(0);
+				comenzar.setEnabled(true);
+			}
+		});
+    	/* Se establece y se obtiene el botón negativo
+    	 * Si se clicka se reinicia la cuenta de cafés
+    	 */
+    	mbox.setNegativeButton("SALIR", new DialogInterface.OnClickListener() {
+			
+			@Override
+			public void onClick(DialogInterface dialog, int which) {				
+				miActividad.finish();
+			}
+		});
+    	
+    	mp = MediaPlayer.create(this, R.raw.chimes);
+    	
     }
 
     @Override
@@ -110,7 +150,15 @@ public class Eje4MainActivity extends Activity implements View.OnClickListener {
         public void onFinish() {
             contadorCafes.setText("Pausa terminada!!");
             ponerContadorCafes(cafes + 1);
+            if (cafes >= 10){
+            	mbox.show();
+            	return;
+            }
+            mp.start();
             comenzar.setEnabled(true);
+            /*
+             * TODO : Poner contador como estaba.
+             */
         }
     }
 }

@@ -1,5 +1,8 @@
 package com.example.hola_;
 
+import java.text.NumberFormat;
+import java.util.Locale;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -66,10 +69,12 @@ public class Eje1MainActivity extends Activity implements OnClickListener {
 			this.finish();		
 	}
 
+	
 	public void Calcular(RadioGroup gr) {
 		// Comprobamos si el campo cambio está vacio
-		if (this.factor.getText().toString() == "")
+		if (this.factor.getText().toString().isEmpty())			
 			return;
+		
 		// Si no está vacío parseamos su valor si se puede, sino salimos
 		try {
 			this.cambio = Double.parseDouble(this.factor.getText().toString());
@@ -82,15 +87,14 @@ public class Eje1MainActivity extends Activity implements OnClickListener {
 		
 		// Si Dolares a Euro esta activado:
 		if (gr.getCheckedRadioButtonId() == R.id.radio0) {
-			if (this.dolares.getText().toString() == "")
-				return;
+			if (this.dolares.getText().toString().isEmpty()) return;
+			
 			this.euros.setText(String.format("%.2f",
 							(Double.parseDouble(this.dolares.getText().toString()) / this.cambio)));
 			return;
 		}
 		// Sino es Euros a Dolares
-		if (this.euros.getText().toString() == "")
-			return;
+		if (this.euros.getText().toString().isEmpty()) return;
 		this.dolares.setText(String.format("%.2f",
 						(Double.parseDouble(this.euros.getText().toString()) * this.cambio)));
 	}
